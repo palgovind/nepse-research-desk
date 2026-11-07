@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10243a">
+  <meta name="description" content="Offline-first personal NEPSE position-trading research dashboard.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>NEPSE Research Desk</title>
+</head>
+<body>
+<header class="topbar">
+  <div><div class="eyebrow">PERSONAL INVESTMENT RESEARCH</div><h1>NEPSE Research Desk</h1></div>
+  <span id="connection" class="pill">Offline-ready</span>
+</header>
+<main>
+  <section class="notice">
+    <strong>Research tool — not a trading terminal.</strong>
+    <p>No broker connection, order execution or guaranteed real-time feed. Prices are marked with their source and timestamp. Only import data you are authorised to use.</p>
+  </section>
+
+  <section class="grid summary">
+    <article class="metric"><span>Watchlist</span><b id="watchCount">11</b><small>unique symbols</small></article>
+    <article class="metric"><span>Data rows</span><b id="rowCount">0</b><small>locally stored</small></article>
+    <article class="metric"><span>Latest data</span><b id="latestDate">—</b><small id="freshness">No data imported</small></article>
+  </section>
+
+  <nav class="tabs" aria-label="Main sections">
+    <button class="tab active" data-tab="watch">Watchlist</button>
+    <button class="tab" data-tab="research">Research</button>
+    <button class="tab" data-tab="data">Data & settings</button>
+  </nav>
+
+  <section id="watch" class="panel active">
+    <div class="section-head"><div><h2>My watchlist</h2><p>Position-trading horizon · Moderate risk</p></div><button id="editWatch" class="secondary">Edit</button></div>
+    <div id="watchlist" class="stock-list"></div>
+  </section>
+
+  <section id="research" class="panel">
+    <h2>Research signals</h2>
+    <p class="muted">Signals are screening observations, not buy/sell instructions. A score is withheld when data is insufficient.</p>
+    <div class="field"><label for="symbolSelect">Company</label><select id="symbolSelect"></select></div>
+    <div id="researchCard" class="research-card"><p>Import authorised daily OHLCV data to calculate indicators.</p></div>
+    <div class="card">
+      <h3>Scoring model</h3>
+      <div class="score-row"><span>Trend alignment</span><b>25 points</b></div>
+      <div class="score-row"><span>Momentum</span><b>20 points</b></div>
+      <div class="score-row"><span>Volume confirmation</span><b>15 points</b></div>
+      <div class="score-row"><span>Fundamentals (manual)</span><b>25 points</b></div>
+      <div class="score-row"><span>Sector strength (manual)</span><b>15 points</b></div>
+      <p class="muted small">Technical score is calculated from imported prices. Fundamental and sector scores remain unassigned until you enter verified information; total score is therefore not fabricated.</p>
+    </div>
+    <div class="card"><h3>Price history</h3><canvas id="priceChart" height="190" aria-label="Closing price chart"></canvas><p id="chartCaption" class="muted small">No history available.</p></div>
+  </section>
+
+  <section id="data" class="panel">
+    <h2>Data & settings</h2>
+    <div class="card">
+      <h3>Import daily OHLCV CSV</h3>
+      <p class="muted">Use data you have permission to download or store. Expected columns: <code>date,symbol,open,high,low,close,volume,source</code>. Dates should be YYYY-MM-DD.</p>
+      <input id="csvFile" type="file" accept=".csv,text/csv">
+      <button id="importBtn">Import CSV</button>
+      <p id="importStatus" class="status" role="status">No file selected.</p>
+      <a href="sample-template.csv" download>Download CSV template</a>
+    </div>
+    <div class="card">
+      <h3>Watchlist symbols</h3>
+      <p id="symbolsText" class="muted"></p>
+      <p class="muted small">Duplicate GBIME was removed. The trailing comma was ignored. You have 11 unique symbols.</p>
+      <button id="exportBtn" class="secondary">Export local data backup</button>
+      <button id="clearBtn" class="danger">Delete all locally stored data</button>
+    </div>
+    <div class="card">
+      <h3>Data source policy</h3>
+      <p>Official NEPSE API access is governed by NEPSE's data-use procedure and may require a fee and written approval. A public repository's software licence does not automatically license the underlying exchange data.</p>
+      <p><a href="https://www.nepalstock.com/" target="_blank" rel="noopener">NEPSE official website</a> · <a href="https://shubhamnpk.github.io/yonepse/pages/docs.html" target="_blank" rel="noopener">YONEPSE public dataset documentation (unofficial)</a></p>
+      <p class="muted small">This build intentionally does not scrape NEPSE, bypass access controls, or call an unofficial feed. A connector can be enabled after its data rights, terms, provenance and permitted personal-use scope are confirmed.</p>
+    </div>
+    <div class="card">
+      <h3>Local storage & privacy</h3>
+      <p>Imported data and settings stay in this browser on this device. They are not synchronised or backed up automatically. Export a backup before clearing browser data.</p>
+    </div>
+  </section>
+</main>
+<footer>NEPSE Research Desk · v0.1 · Personal research only</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "NEPSE Research Desk",
+  "short_name": "NEPSE Desk",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1420",
+  "theme_color": "#10243a",
+  "description": "Offline-first personal NEPSE position-trading research dashboard.",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
